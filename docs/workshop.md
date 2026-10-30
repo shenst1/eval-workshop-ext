@@ -282,6 +282,14 @@ uv run cat-experiments run experiments/routing.py \
   --dataset live_routing
 ```
 
+Optional — compare against the parallel **Jev router** (TypeSafe Choice + Noul, escalate-only). Requires `TYPESAFE_API_KEY`. See [jev_router.md](jev_router.md) and the short pitch in [why_jev.md](why_jev.md). Speed/cost: `uv run python scripts/compare_routing_bench.py --dataset data/live_workshop_routing.jsonl`.
+
+```bash
+uv run cat-experiments run experiments/jev_routing.py \
+  -c experiments/jev_baseline.yaml \
+  --dataset live_routing
+```
+
 ### View Results
 
 Open CAT Cafe: **http://localhost:8000/datasets**
@@ -646,9 +654,17 @@ Click into any example to see:
 
 Click into a failure and read the critique. It tells you exactly what went wrong — far more useful than a numeric score.
 
+Optional — compare against the parallel **Jev faithfulness judge** (TypeSafe Noul probability; LLM critique only on fails). Requires `TYPESAFE_API_KEY`. Score is continuous in `[0, 1]`; explanation appears only when `score < 0.8`. See [jev_hr_judge.md](jev_hr_judge.md) and [why_jev.md](why_jev.md). Speed/cost: `uv run python scripts/compare_hr_judge_bench.py --dataset data/live_workshop_hr.jsonl`.
+
+```bash
+uv run cat-experiments run experiments/jev_hr_specialist.py \
+  -c experiments/jev_hr_baseline.yaml \
+  --dataset live_hr
+```
+
 ### Key Insight
 
-> Pass/fail with critique beats metric soup. "Groundedness: 0.3" tells you nothing. "Response contradicts KB — KB says 15 days, agent said 30" tells you everything.
+> Pass/fail with critique beats metric soup. "Groundedness: 0.3" tells you nothing. "Response contradicts KB — KB says 15 days, agent said 30" tells you everything. A calibrated probability plus a reason only on fails is a useful middle ground — see the Jev judge path.
 
 ---
 
@@ -675,6 +691,12 @@ In CAT Cafe, filter to failures:
 
 ```
 evaluations.hr_response_quality.score == 0
+```
+
+For the Jev judge experiment (`hr-jev-with-specialists` / `hr-jev-tuned`), use a threshold instead (scores are continuous probabilities):
+
+```
+evaluations.hr_response_quality.score < 0.8
 ```
 
 Read the critiques. What pattern do you see?

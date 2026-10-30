@@ -78,14 +78,17 @@ eval-workshop-ext/
 ├── configs/                 # Agent configurations + models.yaml
 ├── data/                    # Datasets (JSONL format)
 ├── docs/
-│   └── workshop.md          # Workshop guide
-├── experiments/             # Experiment definitions
+│   ├── workshop.md          # Workshop guide
+│   ├── why_jev.md           # Why Jev for routing + evals (with bench numbers)
+│   ├── jev_router.md        # Optional Jev router path
+│   └── jev_hr_judge.md      # Optional Jev faithfulness judge path
+├── experiments/             # Experiment definitions (LLM + optional Jev*)
 ├── kb/                      # Knowledge base documents
 ├── prompts/                 # Prompt files (versioned)
-├── scripts/                 # CLI tools
+├── scripts/                 # CLI tools + compare_*_bench.py
 └── src/
     ├── agent_platform/      # Custom agent runtime
-    └── helpdesk/            # Helpdesk domain
+    └── helpdesk/            # Helpdesk domain (+ optional jev_*.py)
 ```
 
 ## Service URLs
@@ -97,4 +100,5 @@ eval-workshop-ext/
 ## Prerequisites
 
 - **Anthropic API key** ([get one here](https://console.anthropic.com/settings/keys)) or **OpenAI API key** ([get one here](https://platform.openai.com/api-keys))
+- **Optional:** TypeSafe API key for Jev paths — start with [why_jev.md](docs/why_jev.md), then [jev_router.md](docs/jev_router.md) / [jev_hr_judge.md](docs/jev_hr_judge.md)
 - **One of:** GitHub Codespaces (browser only), VS Code with Dev Containers extension, or local Python 3.13+ with Docker
