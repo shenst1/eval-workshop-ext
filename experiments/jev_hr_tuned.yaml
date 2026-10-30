@@ -1,0 +1,16 @@
+# Jev HR Specialist Experiment Configuration (tuned)
+#
+# Same agent as hr_tuned.yaml; faithfulness scored by TypeSafe Jev.
+#
+# Run with:
+#   cat-experiments run experiments/jev_hr_specialist.py \
+#     -c experiments/jev_hr_tuned.yaml --dataset live_hr
+
+name: "hr-jev-tuned"
+description: "Tuned HR specialist with Jev faithfulness judge"
+
+params:
+  agent_config: "configs/agents/hr_tuned.yaml"
+
+max_workers: 5
+repetitions: 1
